@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  width: 400px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  border-radius: 4px;
+  list-style: none;
+
+}
+li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.radio:hover, .label:hover {
+  cursor: pointer;
+}
+
+.radio {
+  border: none;
+  display: none;
+}
+
+.item {
+  transition: 500ms;
+  border: 1px solid #ececec;
+    &-completed {
+        @extend .item;
+        background: #f3f3f3;
+        border: 1px solid #f3f3f3;
+        color: #707070;
+    
+        .label {
+          text-decoration: line-through;
+        }
+      }
+    &:hover {
+      border: 1px solid #fff;
+      cursor: pointer;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+    &:active {
+      background: #f3f3f3;
+      border: 1px solid #f3f3f3;
+      color: #707070;
+      box-shadow: none;
+    }
+}
+
+
