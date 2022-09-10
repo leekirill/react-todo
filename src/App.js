@@ -128,6 +128,7 @@ class App extends Component {
                   return (
                     <li
                       key={id}
+                      onClick={() => this.updateToDo(id)}
                       className={!completed ? "item" : "item-completed"}
                     >
                       <label className="label">
@@ -135,7 +136,6 @@ class App extends Component {
                           className="radio"
                           type="radio"
                           checked={completed}
-                          onClick={() => this.updateToDo(id)}
                         ></input>
                         <span>{title}</span>
                       </label>
