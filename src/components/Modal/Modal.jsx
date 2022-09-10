@@ -4,9 +4,8 @@ import React from 'react'
 function Modal({isActive, children, toggleChange}) {
 
         return (
-        isActive &&
-            <div className = { style.modal } onClick={toggleChange}>
-                <div className={style.content}>
+            <div className={isActive ? style.modal : style.modalClose} onClick={toggleChange}>
+                <div className={isActive ? style.content : style.contentClose}>
                     {children}
                 </div>
             </div >)

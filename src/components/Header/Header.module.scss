@@ -24,3 +24,14 @@
         color: rgb(70, 104, 255);
     }
 }
+
+.input {
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    padding: 0 10px;
+    width: 40%;
+    &:focus {
+        border: 1px solid rgb(70, 104, 255)
+    }
+}

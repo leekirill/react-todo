@@ -79,12 +79,18 @@ class App extends Component {
   }
 
   clearAll() {
-    this.setState({
-      name: "",
-      todos: [],
-      filter: "",
-      isActive: false,
-    });
+    var result = window.confirm("Вы уверены?");
+
+    if (result) {
+      this.setState({
+        name: "",
+        todos: [],
+        filter: "",
+        isActive: false,
+      });
+    } else {
+      return;
+    }
   }
 
   toggleState = (e) => {
@@ -114,12 +120,14 @@ class App extends Component {
           <div className="container">
             <div className="content">
               <ul>
-                <button onClick={this.toggleState}>Добавить задачу</button>
+                <button onClick={this.toggleState} className="addBtn">
+                  Добавить задачу
+                </button>
                 {this.state.todos.map(({ id, title, completed }) => {
+                  console.log(completed);
                   return (
                     <li
                       key={id}
-                      onClick={() => this.updateToDo(id)}
                       className={!completed ? "item" : "item-completed"}
                     >
                       <label className="label">
@@ -127,17 +135,23 @@ class App extends Component {
                           className="radio"
                           type="radio"
                           checked={completed}
+                          onClick={() => this.updateToDo(id)}
                         ></input>
                         <span>{title}</span>
                       </label>
-                      <button onClick={() => this.deleteToDo(id)}>
+                      <button
+                        onClick={() => this.deleteToDo(id)}
+                        className="deleteBtn"
+                      >
                         Удалить
                       </button>
                     </li>
                   );
                 })}
               </ul>
-              <button onClick={() => this.clearAll()}>Удалить всё</button>
+              <button className="deleteBtn" onClick={() => this.clearAll()}>
+                Удалить всё
+              </button>
             </div>
           </div>
         )}

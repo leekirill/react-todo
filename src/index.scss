@@ -26,18 +26,6 @@ ul {
   width: 400px;
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
-  padding: 24px;
-  border-radius: 4px;
-  list-style: none;
-
-}
-li:not(:last-child) {
-  margin-bottom: 10px;
-}
-
 button:hover {
   cursor: pointer;
 }
@@ -52,12 +40,17 @@ input[type="radio"] {
 
 .radio {
   border: none;
-  display: none;
 }
 
 .item {
   transition: 500ms;
   border: 1px solid #ececec;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  list-style: none;
     &-completed {
         @extend .item;
         background: #f3f3f3;
@@ -81,4 +74,32 @@ input[type="radio"] {
     }
 }
 
+.addBtn {
+  @extend .item;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px dashed #ececec;
+  color: #808080;
+  &:hover {
+    box-shadow: none;
+    border: 1px dashed rgb(70, 104, 255);
+    color: rgb(70, 104, 255)
+  }
+}
 
+.deleteBtn {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  background: #ececec;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: 250ms;
+
+  &:hover {
+    background: #ff6161;
+    color: #fff
+  }
+}
