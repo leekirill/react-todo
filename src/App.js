@@ -9,19 +9,13 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
 import Welcome from "./components/Welcome/Welcome";
+import TodoList from "./components/TodoList/TodoList";
 
 class App extends Component {
   state = {
-    name: "",
-    todos: [],
+    todos: JSON.parse(localStorage.getItem("state")),
     filter: "",
     isActive: false,
-  };
-
-  handleChange = (e) => {
-    this.setState({
-      name: e.currentTarget.value,
-    });
   };
 
   filterChange = (e) => {
@@ -30,12 +24,10 @@ class App extends Component {
     });
   };
 
-  addToDo = (e) => {
-    e.preventDefault();
-
+  addToDo = (text) => {
     const todo = {
       id: nanoid(2),
-      title: this.state.name,
+      title: text,
       completed: false,
     };
 
@@ -48,14 +40,14 @@ class App extends Component {
       todos: [todo, ...prevState.todos],
       isActive: !this.state.isActive,
     }));
-
-    this.clear();
   };
 
   deleteToDo = (id) => {
     this.setState((prevState) => ({
       todos: prevState.todos.filter((e) => e.id !== id),
     }));
+
+    console.log(id);
   };
 
   updateToDo = (id) => {
@@ -72,21 +64,12 @@ class App extends Component {
     }));
   };
 
-  clear() {
-    this.setState({
-      name: "",
-    });
-  }
-
   clearAll() {
     var result = window.confirm("Вы уверены?");
 
     if (result) {
       this.setState({
-        name: "",
         todos: [],
-        filter: "",
-        isActive: false,
       });
     } else {
       return;
@@ -101,10 +84,11 @@ class App extends Component {
     }
   };
 
-  filterToDo = () => {
-    const filteredToDo = this.state.todos.map((e) => console.log(e));
-    console.log(filteredToDo);
-  };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.todos !== prevState.todos) {
+      localStorage.setItem("state", JSON.stringify(this.state.todos));
+    }
+  }
 
   render() {
     return (
@@ -123,31 +107,12 @@ class App extends Component {
                 <button onClick={this.toggleState} className="addBtn">
                   Добавить задачу
                 </button>
-                {this.state.todos.map(({ id, title, completed }) => {
-                  console.log(completed);
-                  return (
-                    <li
-                      key={id}
-                      onClick={() => this.updateToDo(id)}
-                      className={!completed ? "item" : "item-completed"}
-                    >
-                      <label className="label">
-                        <input
-                          className="radio"
-                          type="radio"
-                          checked={completed}
-                        ></input>
-                        <span>{title}</span>
-                      </label>
-                      <button
-                        onClick={() => this.deleteToDo(id)}
-                        className="deleteBtn"
-                      >
-                        Удалить
-                      </button>
-                    </li>
-                  );
-                })}
+                <TodoList
+                  todoState={this.state.todos}
+                  updateToDo={this.updateToDo}
+                  deleteToDo={this.deleteToDo}
+                  filterState={this.state.filter}
+                />
               </ul>
               <button className="deleteBtn" onClick={() => this.clearAll()}>
                 Удалить всё
@@ -156,14 +121,14 @@ class App extends Component {
           </div>
         )}
         <Modal isActive={this.state.isActive} toggleChange={this.toggleState}>
-          <Form
-            value={this.state.name}
-            onChange={this.handleChange}
-            onSubmit={this.addToDo}
-            toggleChange={this.toggleState}
-          />
+          <Form onSubmit={this.addToDo} toggleChange={this.toggleState} />
         </Modal>
-        <ToastContainer />
+        <ToastContainer
+          position="top-left"
+          autoClose={3000}
+          hideProgressBar
+          pauseOnHover={false}
+        />
       </>
     );
   }

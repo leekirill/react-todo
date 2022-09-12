@@ -47,22 +47,21 @@ input[type="radio"] {
   border: 1px solid #ececec;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 24px;
   margin-bottom: 10px;
   border-radius: 4px;
   list-style: none;
     &-completed {
         @extend .item;
-        background: #f3f3f3;
-        border: 1px solid #f3f3f3;
-        color: #707070;
+        color: #bebebe;
     
         .label {
           text-decoration: line-through;
         }
       }
     &:hover {
-      border: 1px solid #fff;
+      // border: 1px solid #fff;
       cursor: pointer;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
@@ -91,9 +90,9 @@ input[type="radio"] {
 .deleteBtn {
   padding: 6px 14px;
   border-radius: 4px;
-  border: none;
-  color: #000;
-  background: #ececec;
+  border: 1px solid #ececec;
+  color: rgb(124, 124, 124);
+  background: #fff;
   user-select: none;
   -webkit-user-select: none;
   transition: 250ms;
