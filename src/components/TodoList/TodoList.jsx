@@ -2,8 +2,6 @@ import React from "react";
 
 export default function TodoList({ todoState, updateToDo, deleteToDo, filterState }) {
 
-
-
     const filteredList = todoState.filter(e => e.title.toLowerCase().includes(filterState.toLowerCase()))
 
     return filteredList.map(({ id, title, completed }) => {
@@ -33,3 +31,4 @@ export default function TodoList({ todoState, updateToDo, deleteToDo, filterStat
         }
     )
 }
+

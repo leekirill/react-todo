@@ -13,7 +13,7 @@ import TodoList from "./components/TodoList/TodoList";
 
 class App extends Component {
   state = {
-    todos: JSON.parse(localStorage.getItem("state")),
+    todos: [],
     filter: "",
     isActive: false,
   };
@@ -31,7 +31,7 @@ class App extends Component {
       completed: false,
     };
 
-    if (this.state.name === "") {
+    if (text === "") {
       toast.error("Впишите задачу");
       return;
     }
