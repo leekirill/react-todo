@@ -1,46 +1,15 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import { addTodoRequest, addTodoSuccess, addTodoError, deleteTodo, deleteAllTodo, updateTodo, editTodo, filterChange, fetchTodoSuccess } from './todos-actions'
-import { toast } from "react-toastify";
+import { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, editTodoRequest, editTodoSuccess, editTodoError, filterChange } from './todos-actions'
 
 const todosReducer = createReducer([], {
     [fetchTodoSuccess]: (_, { payload }) => payload,
-
-    [addTodoSuccess]: (state, { payload }) => {
-        if (payload.title !== '') {
-            return [payload, ...state]
-        } else {
-            toast.error("Впишите задачу");
-            return;
-        }
-    },
-    [deleteTodo]: (state, { payload }) => {
-        if (window.confirm("Вы уверены?") === true) {
-            return state.filter((todo) => todo.id !== payload)
-        } else {
-            return state
-        }
-    },
-    [deleteAllTodo]: (state, _) => {
-
-        if (window.confirm("Вы уверены?") === false) {
-            return state
-        } else {
-            return [];
-        }
-    },
-    [updateTodo]: (state, { payload }) => {
-        
-        return state.map(todo => {
-            if (todo.id === payload) {
-                return {
-                    ...todo,
-                    completed: !todo.completed
-                }
-            }
-                return todo
-        });
-    }
+    [addTodoSuccess]: (state, { payload }) => [payload, ...state],
+    [deleteTodoSuccess]: (state, { payload }) => state.filter((todo) => todo.id !== payload),
+    [editTodoSuccess]: (state, { payload }) => state.map(contact => {
+        if (contact.id === payload.id) return payload
+        return contact
+    })
 })
 
 const filterReducer = createReducer('', {
@@ -50,9 +19,18 @@ const filterReducer = createReducer('', {
 })
 
 const loading = createReducer(false, {
-    [addTodoRequest]: true,
-    [addTodoSuccess]: false,
-    [addTodoError]: false
+    [fetchTodoRequest]: () => true,
+    [fetchTodoSuccess]: () => false,
+    [fetchTodoError]: () => false,
+    [addTodoRequest]: () => true,
+    [addTodoSuccess]: () => false,
+    [addTodoError]: () => false,
+    [deleteTodoRequest]: () => true,
+    [deleteTodoSuccess]: () => false,
+    [deleteTodoError]: () => false,
+    [editTodoRequest]: () => true,
+    [editTodoSuccess]: () => false,
+    [editTodoError]: () => false
 })
 
 // const todosReducer = (state = [], { type, payload }) => {

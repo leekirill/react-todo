@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import style from '../Form/Form.module.scss'
-// import * as action from '../../redux/todos/todos-actions'
+import { addTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
+
 
 export default function Form({ toggleChange }) {
   
   const dispatch = useDispatch()
-  // const onSubmit = (text) => dispatch(action.addTodo(text))
+  const onSubmitTodo = (todo) => dispatch(addTodo(todo))
   
   const [name, setName] = useState('')
   
@@ -15,7 +16,9 @@ export default function Form({ toggleChange }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // onSubmit(name)
+    onSubmitTodo({
+      taskName: name
+    })
     
     setName('')
   }

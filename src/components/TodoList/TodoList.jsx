@@ -1,43 +1,60 @@
 import React from "react";
-import * as action from '../../redux/todos/todos-actions'
 import { useSelector, useDispatch } from 'react-redux'
+import { deleteTodo } from "../../redux/todos/todos-operation";
+import { nanoid } from 'nanoid'
+import { BsFillTrashFill } from 'react-icons/bs';
+import { AiFillEdit } from 'react-icons/ai';
+import { useState } from "react";
+import EditForm from "../Form/EditForm";
+import Modal from "../Modal/Modal";
 
-export default function TodoList() {
+
+export default function TodoList({onClickEdit}) {
 
     const todos = useSelector(state => state.todos)
     const filter = useSelector(state => state.filter)
 
+    console.log(todos)
+
     const dispatch = useDispatch()
-    const deleteTodo = (id) => dispatch(action.deleteTodo(id))
-    const updateTodo = (id) => dispatch(action.updateTodo(id))
-    const editTodo = (title) => dispatch(action.editTodo(title))
+    const onClickDeleteTodo = (id) => {
+        if (window.confirm('Are you sure?') === true) {
+            dispatch(deleteTodo(id))
+        } else {
+            return
+        }
+    }
+
+    const onClickEditTodo = (taskName) => onClickEdit(taskName)
+
 
     const filteredList = todos.filter(e => e.taskName.toLowerCase().includes(filter.toLowerCase()))
 
     return filteredList.map(({ id, taskName, completed }) => {
-
         return (
                 <li
-                    key={id}
+                    key={nanoid(2)}
                     draggable={true}
                     className={!completed ? "item" : "item-completed"}
                 >
                         <label className="label">
                             
                             <input
-                                className="radio"
-                                type="radio"
-                                checked={completed}
-                                onClick={() => updateTodo(id)}
+                                className="checkbox"
+                                type="checkbox"
+                                defaultChecked={completed}
                             ></input>
                             <span>{taskName}</span>
-                        </label>
+                </label>
+                <div className="item__buttons">
+                    <button className="item__button" onClick={() => onClickEditTodo(taskName)}><AiFillEdit /></button>
                     <button
-                        onClick={() => deleteTodo(id)}
-                        className="deleteBtn"
+                        onClick={() => onClickDeleteTodo(id)}
+                        className="item__button"
                         >
-                        Удалить
+                        <BsFillTrashFill />
                     </button>
+                    </div>
                 </li>
             );
         }

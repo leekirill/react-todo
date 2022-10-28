@@ -13,19 +13,56 @@ const fetchTodo = () => async dispatch => {
     } catch (error) {
         dispatch(action.fetchTodoError(error))
     }
-
-
-    // axios
-    //     .get('/todos')
-    //     .then(({ data }) => dispatch(action.fetchTodoSuccess(data)))
-    //     .catch(error => action.fetchTodoError(error))
 }
 
-// const addTodo = (taskName) => dispatch => {
+const addTodo = (todo) => async dispatch => {
 
-//     dispatch(action.addTodoRequest())
+    dispatch(action.addTodoRequest())
 
-//     axios
-// }
+    try {
+        const todos = await axios.post('/todos', todo)
+        dispatch(action.addTodoSuccess(todos.data))
+    } catch (error) {
+        dispatch(action.addTodoError(error))
+    }
+}
 
-export { fetchTodo }
+const deleteTodo = (id) => async dispatch => {
+
+    dispatch(action.deleteTodoRequest())
+
+    try {
+        const todos = await axios.delete(`/todos/${id}`)
+        dispatch(action.deleteTodoSuccess(todos.data.id))
+    } catch (error) {
+        dispatch(action.deleteTodoError(error.message))
+    }
+}
+
+const deleteAllTodo = () => async dispatch => {
+
+    dispatch(action.deleteAllTodoRequest())
+
+    try {
+        const todos = await axios.get(`/todos`)
+        dispatch(action.deleteAllTodoSuccess(todos.data))
+    } catch (error) {
+        dispatch(action.deleteAllTodoError(error.message))
+    }
+}
+
+const editTodo = (taskName) => async dispatch => {
+
+    dispatch(action.editTodoRequest())
+
+    try {
+        const todos = await axios.post(`/todos`, {
+            taskName
+        })
+        dispatch(action.editTodoSuccess(todos.data))
+    } catch (error) {
+        dispatch(action.editTodoError(error.message))
+    }
+}
+
+export { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo }

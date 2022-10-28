@@ -7,21 +7,30 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
+import EditForm from "./components/Form/EditForm";
 import Modal from "./components/Modal/Modal";
 import Welcome from "./components/Welcome/Welcome";
 import TodoList from "./components/TodoList/TodoList";
-import * as action from "./redux/todos/todos-actions";
 import { fetchTodo } from "./redux/todos/todos-operation";
 
 export default function App() {
   const [isActive, setIsActive] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editName, setIsEditName] = useState("");
+
   const todos = useSelector((state) => state.todos);
 
   const dispatch = useDispatch();
-  const deleteAllTodo = () => dispatch(action.deleteAllTodo());
+
+  // const onClickDeleteAllTodo = () => dispatch(deleteAllTodo());
 
   const toggleState = (e) => {
     if (e.currentTarget === e.target) setIsActive(!isActive);
+  };
+
+  const onClickEdit = (taskName) => {
+    setIsEdit(!isEdit);
+    setIsEditName(taskName);
   };
 
   useEffect(() => {
@@ -37,24 +46,24 @@ export default function App() {
         <div className="container">
           <div className="content">
             <ul>
-              <button onClick={toggleState} className="addBtn">
+              <button onClick={toggleState} className="item__add">
                 Добавить задачу
               </button>
-              <TodoList
-                toggleState={toggleState}
-                // updateToDo={updateToDo}
-                // deleteToDo={deleteToDo}
-                // filterState={filter}
-              />
+              <TodoList toggleState={toggleState} onClickEdit={onClickEdit} />
             </ul>
-            <button className="deleteBtn" onClick={deleteAllTodo}>
-              Удалить всё
-            </button>
+            <button className="deleteBtn">Удалить всё</button>
           </div>
         </div>
       )}
       <Modal isActive={isActive} toggleChange={toggleState}>
-        <Form toggleChange={toggleState} todos={todos} />
+        <Form toggleChange={toggleState} isEdit={isEdit} />
+      </Modal>
+      <Modal isActive={isEdit}>
+        <EditForm
+          onClickEdit={onClickEdit}
+          taskName={editName}
+          isEdit={isEdit}
+        />
       </Modal>
       <ToastContainer
         position="top-left"

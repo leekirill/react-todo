@@ -13,7 +13,7 @@ export default function Header({ onClick, total }) {
         <header className={style.header}>
             <button className={style.btn} onClick={onClick}>+</button>
             <input type="text" value={value.filter} onChange={(e) => onChange(e.target.value)} placeholder='search' className={style.input}></input>
-            <span>Задачи: {total}</span>
+            <span>Total: {total}</span>
         </header>
     )
 }

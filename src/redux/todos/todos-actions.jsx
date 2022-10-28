@@ -8,13 +8,19 @@ const addTodoRequest = createAction('todos/addTodoRequest')
 const addTodoSuccess = createAction('todos/addTodoSuccess')
 const addTodoError = createAction('todos/addTodoError')
 
-const deleteTodo = createAction('todos/Delete')
-const deleteAllTodo = createAction('todos/DeleteAll')
+const deleteTodoRequest = createAction('todos/deleteTodoRequest')
+const deleteTodoSuccess = createAction('todos/deleteTodoSuccess')
+const deleteTodoError = createAction('todos/deleteTodoError')
 
-const updateTodo = createAction('todos/Update')
-const editTodo = createAction('todos/Edit')
+const deleteAllTodoRequest = createAction('todos/deleteTodoRequest')
+const deleteAllTodoSuccess = createAction('todos/deleteTodoSuccess')
+const deleteAllTodoError = createAction('todos/deleteTodoError')
+
+const editTodoRequest = createAction('todos/editTodoRequest')
+const editTodoSuccess = createAction('todos/editTodoSuccess')
+const editTodoError = createAction('todos/editTodoError')
 
 const filterChange = createAction('filter/Filter_change')
 
 
-export { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodo, deleteAllTodo, updateTodo, editTodo, filterChange }
+export { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, deleteAllTodoRequest, deleteAllTodoSuccess, deleteAllTodoError, editTodoRequest, editTodoSuccess, editTodoError, filterChange }
