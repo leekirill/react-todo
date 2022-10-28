@@ -1,27 +1,39 @@
 import React from "react";
+import * as action from '../../redux/todos/todos-actions'
+import { useSelector, useDispatch } from 'react-redux'
 
-export default function TodoList({ todoState, updateToDo, deleteToDo, filterState }) {
+export default function TodoList() {
 
-    const filteredList = todoState.filter(e => e.title.toLowerCase().includes(filterState.toLowerCase()))
+    const todos = useSelector(state => state.todos)
+    const filter = useSelector(state => state.filter)
 
-    return filteredList.map(({ id, title, completed }) => {
+    const dispatch = useDispatch()
+    const deleteTodo = (id) => dispatch(action.deleteTodo(id))
+    const updateTodo = (id) => dispatch(action.updateTodo(id))
+    const editTodo = (title) => dispatch(action.editTodo(title))
+
+    const filteredList = todos.filter(e => e.taskName.toLowerCase().includes(filter.toLowerCase()))
+
+    return filteredList.map(({ id, taskName, completed }) => {
+
         return (
                 <li
                     key={id}
                     draggable={true}
-                    onClick={() => updateToDo(id)}
                     className={!completed ? "item" : "item-completed"}
                 >
                         <label className="label">
+                            
                             <input
                                 className="radio"
                                 type="radio"
                                 checked={completed}
+                                onClick={() => updateTodo(id)}
                             ></input>
-                            <span>{title}</span>
+                            <span>{taskName}</span>
                         </label>
                     <button
-                        onClick={() => deleteToDo(id)}
+                        onClick={() => deleteTodo(id)}
                         className="deleteBtn"
                         >
                         Удалить
@@ -31,4 +43,3 @@ export default function TodoList({ todoState, updateToDo, deleteToDo, filterStat
         }
     )
 }
-

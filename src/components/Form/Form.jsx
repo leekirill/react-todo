@@ -1,53 +1,50 @@
-
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../Form/Form.module.scss'
+// import * as action from '../../redux/todos/todos-actions'
+import { useDispatch } from 'react-redux';
 
-export default class Form extends Component {
+export default function Form({ toggleChange }) {
   
-  state = {
-    name: ''
-  }
+  const dispatch = useDispatch()
+  // const onSubmit = (text) => dispatch(action.addTodo(text))
+  
+  const [name, setName] = useState('')
+  
+  const handleChange = (e) => setName(e.currentTarget.value)
 
-  handleChange = (e) => {
-    this.setState({
-      name: e.currentTarget.value,
-    });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
-    this.props.onSubmit(this.state.name)
-    this.clear()
+    // onSubmit(name)
+    
+    setName('')
   }
 
-  clear() {
-    this.setState({
-      name: '',
-    });
-  }
-  
-  render() {
-    return (
+  useEffect(() => {
+    return setName('')
+  }, [toggleChange])
+
+  return (
+
       <form
         className={style.form}
-        onSubmit={this.handleSubmit}
+        onSubmit={handleSubmit}
       >
         <label className={style.label}>
           Новая задача
           <textarea className={style.input}
             type="text"
-            onChange={this.handleChange}
-            value={this.state.name}
-            placeholder="напр., Написать книгу"
+            onChange={handleChange}
+            value={name}
+          placeholder="напр., Написать книгу"
+          autoFocus
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <button type="submit" className={style.btn}>Добавить задачу</button>
-          <button type="button" className={style.btnSecondary} onClick={this.props.toggleChange}>Отмена</button>
+          <button type="submit" className={style.btn} onClick={toggleChange}>Добавить задачу</button>
+          <button type="button" className={style.btnSecondary} onClick={toggleChange}>Отмена</button>
         </div>
 
       </form>
     )
   }
-}
