@@ -17,6 +17,7 @@ export default function App() {
   const [isActive, setIsActive] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editName, setIsEditName] = useState("");
+  const [editNameIndex, setEditNameIndex] = useState(null);
 
   const todos = useSelector((state) => state.todos);
 
@@ -49,7 +50,11 @@ export default function App() {
               <button onClick={toggleState} className="item__add">
                 Добавить задачу
               </button>
-              <TodoList toggleState={toggleState} onClickEdit={onClickEdit} />
+              <TodoList
+                toggleState={toggleState}
+                onClickEdit={onClickEdit}
+                setEditNameIndex={setEditNameIndex}
+              />
             </ul>
             <button className="deleteBtn">Удалить всё</button>
           </div>
@@ -63,6 +68,7 @@ export default function App() {
           onClickEdit={onClickEdit}
           taskName={editName}
           isEdit={isEdit}
+          editNameIndex={editNameIndex}
         />
       </Modal>
       <ToastContainer

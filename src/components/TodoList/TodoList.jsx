@@ -9,12 +9,10 @@ import EditForm from "../Form/EditForm";
 import Modal from "../Modal/Modal";
 
 
-export default function TodoList({onClickEdit}) {
+export default function TodoList({onClickEdit, setEditNameIndex}) {
 
     const todos = useSelector(state => state.todos)
     const filter = useSelector(state => state.filter)
-
-    console.log(todos)
 
     const dispatch = useDispatch()
     const onClickDeleteTodo = (id) => {
@@ -25,8 +23,10 @@ export default function TodoList({onClickEdit}) {
         }
     }
 
-    const onClickEditTodo = (taskName) => onClickEdit(taskName)
-
+    const onClickEditButton = (id, taskName) => {
+        onClickEdit(taskName)
+        setEditNameIndex(id)
+    }
 
     const filteredList = todos.filter(e => e.taskName.toLowerCase().includes(filter.toLowerCase()))
 
@@ -47,7 +47,7 @@ export default function TodoList({onClickEdit}) {
                             <span>{taskName}</span>
                 </label>
                 <div className="item__buttons">
-                    <button className="item__button" onClick={() => onClickEditTodo(taskName)}><AiFillEdit /></button>
+                    <button className="item__button" onClick={() => onClickEditButton(id, taskName)}><AiFillEdit /></button>
                     <button
                         onClick={() => onClickDeleteTodo(id)}
                         className="item__button"

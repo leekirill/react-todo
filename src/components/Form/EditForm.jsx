@@ -4,10 +4,10 @@ import { editTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
 
 
-export default function EditForm({ onClickEdit, taskName, isEdit }) {
+export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex }) {
   
   const dispatch = useDispatch()
-  const onSubmitEditTodo = (todo) => dispatch(editTodo(todo))
+  const onSubmitEditTodo = (id, todo) => dispatch(editTodo(id, todo))
   
   const [value, setValue] = useState('') 
 
@@ -25,7 +25,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmitEditTodo(value)
+    onSubmitEditTodo(editNameIndex, value)
   }
 
   return (

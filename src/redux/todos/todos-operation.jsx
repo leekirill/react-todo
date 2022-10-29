@@ -51,12 +51,12 @@ const deleteAllTodo = () => async dispatch => {
     }
 }
 
-const editTodo = (taskName) => async dispatch => {
+const editTodo = (id, taskName) => async dispatch => {
 
     dispatch(action.editTodoRequest())
 
     try {
-        const todos = await axios.post(`/todos`, {
+        const todos = await axios.put(`/todos/${id}`, {
             taskName
         })
         dispatch(action.editTodoSuccess(todos.data))

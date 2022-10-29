@@ -3,7 +3,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, editTodoRequest, editTodoSuccess, editTodoError, filterChange } from './todos-actions'
 
 const todosReducer = createReducer([], {
-    [fetchTodoSuccess]: (_, { payload }) => payload,
+    [fetchTodoSuccess]: (_, { payload }) => payload.reverse(),
     [addTodoSuccess]: (state, { payload }) => [payload, ...state],
     [deleteTodoSuccess]: (state, { payload }) => state.filter((todo) => todo.id !== payload),
     [editTodoSuccess]: (state, { payload }) => state.map(contact => {
