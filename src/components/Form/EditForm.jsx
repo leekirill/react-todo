@@ -15,11 +15,6 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
     setValue(taskName)
   }, [isEdit])
 
-  // const onClick = () => {
-  //   onClickEdit()
-  //   setValue(taskName)
-  // }
-
   
   const handleChange = (e) => setValue(e.currentTarget.value)
 

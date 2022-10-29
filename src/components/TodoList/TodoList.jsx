@@ -13,6 +13,7 @@ export default function TodoList({onClickEdit, setEditNameIndex}) {
 
     const todos = useSelector(state => state.todos)
     const filter = useSelector(state => state.filter)
+    const loading = useSelector((state) => state.loading);
 
     const dispatch = useDispatch()
     const onClickDeleteTodo = (id) => {
@@ -30,7 +31,13 @@ export default function TodoList({onClickEdit, setEditNameIndex}) {
 
     const filteredList = todos.filter(e => e.taskName.toLowerCase().includes(filter.toLowerCase()))
 
+
+    if (filteredList.length === 0) {
+        return <h1>Бананів в нас нема</h1>
+    } 
+
     return filteredList.map(({ id, taskName, completed }) => {
+
         return (
                 <li
                     key={nanoid(2)}

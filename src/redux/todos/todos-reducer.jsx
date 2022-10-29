@@ -13,9 +13,7 @@ const todosReducer = createReducer([], {
 })
 
 const filterReducer = createReducer('', {
-    [filterChange]: (_, { payload }) => {
-        return payload
-    }
+    [filterChange]: (_, { payload }) => payload
 })
 
 const loading = createReducer(false, {
