@@ -42,8 +42,8 @@ export default function App() {
 
   return (
     <>
-      {loading ? <Loading /> : ""}
       <Header onClick={toggleState} total={todos && todos.length} />
+      {loading ? <Loading /> : ""}
       {todos.length === 0 ? (
         <Welcome onClick={toggleState} />
       ) : (

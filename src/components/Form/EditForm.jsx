@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import style from '../Form/Form.module.scss'
 import { editTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
+import Button from "react-bootstrap/Button";
 
 
 export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex }) {
@@ -21,6 +22,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
   const handleSubmit = (e) => {
     e.preventDefault()
     onSubmitEditTodo(editNameIndex, value)
+    setValue(value)
   }
 
   return (
@@ -39,8 +41,8 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <button type="submit" className={style.btn} onClick={onClickEdit}>Сохранить</button>
-          <button type="button" className={style.btnSecondary} onClick={onClickEdit}>Отмена</button>
+          <Button variant="primary" type="submit" onClick={onClickEdit}>Сохранить</Button>
+          <Button variant="outline-primary" type="button" onClick={onClickEdit}>Отмена</Button>
         </div>
 
       </form>

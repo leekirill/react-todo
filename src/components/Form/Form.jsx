@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import style from '../Form/Form.module.scss'
 import { addTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
+import Button from "react-bootstrap/Button";
+
 
 
 export default function Form({ toggleChange }) {
@@ -44,8 +46,8 @@ export default function Form({ toggleChange }) {
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <button type="submit" className={style.btn} onClick={toggleChange}>Добавить задачу</button>
-          <button type="button" className={style.btnSecondary} onClick={toggleChange}>Отмена</button>
+          <Button variant="primary" type="submit" onClick={toggleChange}>Добавить задачу</Button>
+          <Button variant="outline-primary" type="button" onClick={toggleChange}>Отмена</Button>
         </div>
 
       </form>
