@@ -22,11 +22,9 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
   const handleSubmit = (e) => {
     e.preventDefault()
     onSubmitEditTodo(editNameIndex, value)
-    setValue(value)
   }
 
   return (
-
       <form
         className={style.form}
         onSubmit={handleSubmit}
@@ -41,8 +39,8 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <Button variant="primary" type="submit" onClick={onClickEdit}>Сохранить</Button>
-          <Button variant="outline-primary" type="button" onClick={onClickEdit}>Отмена</Button>
+          <Button variant="primary" type="submit" onClick={() => onClickEdit()}>Сохранить</Button>
+          <Button variant="outline-primary" type="button" onClick={() => onClickEdit()}>Отмена</Button>
         </div>
 
       </form>
