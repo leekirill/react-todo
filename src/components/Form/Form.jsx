@@ -36,18 +36,18 @@ export default function Form({ toggleChange }) {
         onSubmit={handleSubmit}
       >
         <label className={style.label}>
-          Новая задача
+          New task
           <textarea className={style.input}
             type="text"
             onChange={handleChange}
             value={name}
-          placeholder="напр., Написать книгу"
+          placeholder="Task name"
           autoFocus
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <Button variant="primary" type="submit" onClick={toggleChange}>Добавить задачу</Button>
-          <Button variant="outline-primary" type="button" onClick={toggleChange}>Отмена</Button>
+          <Button variant="primary" type="submit" onClick={toggleChange}>Add task</Button>
+          <Button variant="light" type="button" onClick={toggleChange}>Cancel</Button>
         </div>
 
       </form>

@@ -39,18 +39,6 @@ const deleteTodo = (id) => async dispatch => {
     }
 }
 
-const deleteAllTodo = () => async dispatch => {
-
-    dispatch(action.deleteAllTodoRequest())
-
-    try {
-        const todos = await axios.get(`/todos`)
-        dispatch(action.deleteAllTodoSuccess(todos.data))
-    } catch (error) {
-        dispatch(action.deleteAllTodoError(error.message))
-    }
-}
-
 const editTodo = (id, taskName) => async dispatch => {
 
     dispatch(action.editTodoRequest())
@@ -65,4 +53,29 @@ const editTodo = (id, taskName) => async dispatch => {
     }
 }
 
-export { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo }
+const completeTodo = (id, completeState) => async dispatch => {
+
+    dispatch(action.completeTodoRequest())
+
+    try {
+        const todos = await axios.put(`/todos/${id}`, {
+            completed: completeState
+        })
+        dispatch(action.completeTodoSuccess(todos.data))
+    } catch (error) {
+        dispatch(action.completeTodoError(error.message))
+    }
+}
+
+const deleteAllTodo = () => async dispatch => {
+    dispatch(action.deleteAllTodoSuccess())
+
+    try {
+        const todo = await axios.get('/todos')
+        dispatch(action.deleteAllTodoSuccess(todo.data))
+    } catch (error) {
+        dispatch(action.deleteAllTodoError(error.message))
+    }
+}
+
+export { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo, completeTodo }

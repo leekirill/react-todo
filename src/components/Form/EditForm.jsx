@@ -14,7 +14,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
 
   useEffect(() => {
     setValue(taskName)
-  }, [isEdit])
+  }, [taskName])
 
   
   const handleChange = (e) => setValue(e.currentTarget.value)
@@ -30,7 +30,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
         onSubmit={handleSubmit}
       >
         <label className={style.label}>
-          Редактирование
+          Edit task
           <textarea className={style.input}
             type="text"
             onChange={handleChange}
@@ -39,8 +39,8 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
           ></textarea>
         </label>
         <div className={style.button__container}>
-          <Button variant="primary" type="submit" onClick={() => onClickEdit()}>Сохранить</Button>
-          <Button variant="outline-primary" type="button" onClick={() => onClickEdit()}>Отмена</Button>
+          <Button variant="primary" type="submit" onClick={() => onClickEdit()}>Save</Button>
+          <Button variant="light" type="button" onClick={() => onClickEdit()}>Cancel</Button>
         </div>
 
       </form>

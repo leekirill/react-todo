@@ -11,7 +11,7 @@ import EditForm from "./components/Form/EditForm";
 import Modal from "./components/Modal/Modal";
 import Welcome from "./components/Welcome/Welcome";
 import TodoList from "./components/TodoList/TodoList";
-import { fetchTodo } from "./redux/todos/todos-operation";
+import { fetchTodo, deleteAllTodo } from "./redux/todos/todos-operation";
 import Loading from "./components/Loading/Loading";
 
 import Button from "react-bootstrap/Button";
@@ -26,6 +26,7 @@ export default function App() {
   const loading = useSelector((state) => state.loading);
 
   const dispatch = useDispatch();
+  const onClickDeleteAllTodo = () => dispatch(deleteAllTodo());
 
   const toggleState = (e) => {
     if (e.currentTarget === e.target) setIsActive(!isActive);
@@ -51,7 +52,7 @@ export default function App() {
           <div className="content">
             <ul>
               <button onClick={toggleState} className="item__add">
-                Добавить задачу
+                Add task
               </button>
               <TodoList
                 toggleState={toggleState}
@@ -59,7 +60,12 @@ export default function App() {
                 setEditNameIndex={setEditNameIndex}
               />
             </ul>
-            <Button variant="outline-danger">Удалить всё</Button>
+            <Button
+              onClick={() => onClickDeleteAllTodo()}
+              variant="outline-danger"
+            >
+              Delete all
+            </Button>
           </div>
         </div>
       )}

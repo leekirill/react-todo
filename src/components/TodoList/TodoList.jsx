@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteTodo } from "../../redux/todos/todos-operation";
+import { deleteTodo, completeTodo } from "../../redux/todos/todos-operation";
 import { nanoid } from 'nanoid'
 import { BsFillTrashFill } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
@@ -29,6 +29,10 @@ export default function TodoList({onClickEdit, setEditNameIndex}) {
         setEditNameIndex(id)
     }
 
+    const onClickComplete = (id, completeState) => {
+        dispatch(completeTodo(id, completeState))
+    }
+
     const filteredList = todos.filter(e => e.taskName.toLowerCase().includes(filter.toLowerCase()))
 
 
@@ -50,6 +54,7 @@ export default function TodoList({onClickEdit, setEditNameIndex}) {
                                 className="checkbox"
                                 type="checkbox"
                                 defaultChecked={completed}
+                                onClick={() => onClickComplete(id, completed)}
                             ></input>
                             <span>{taskName}</span>
                 </label>

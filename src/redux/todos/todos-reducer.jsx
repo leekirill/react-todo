@@ -1,14 +1,25 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, editTodoRequest, editTodoSuccess, editTodoError, filterChange } from './todos-actions'
+import { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, editTodoRequest, editTodoSuccess, editTodoError, deleteAllTodoRequest, deleteAllTodoSuccess, deleteAllTodoError, completeTodoRequest, completeTodoSuccess, completeTodoError, filterChange } from './todos-actions'
 
 const todosReducer = createReducer([], {
     [fetchTodoSuccess]: (_, { payload }) => payload.reverse(),
     [addTodoSuccess]: (state, { payload }) => [payload, ...state],
     [deleteTodoSuccess]: (state, { payload }) => state.filter((todo) => todo.id !== payload),
-    [editTodoSuccess]: (state, { payload }) => state.map(contact => {
-        if (contact.id === payload.id) return payload
-        return contact
+    [editTodoSuccess]: (state, { payload }) => state.map(todo => {
+        if (todo.id === payload.id) return payload
+        return todo
+    }),
+    [deleteAllTodoSuccess]: (_, { payload }) => [],
+    [completeTodoSuccess]: (state, { payload }) => state.map(todo => {
+        if (todo.id === payload.id) {
+            return {
+                ...todo,
+                completed: !todo.completed
+            }
+        } else {
+            return todo
+        }
     })
 })
 
@@ -28,7 +39,10 @@ const loading = createReducer(false, {
     [deleteTodoError]: () => false,
     [editTodoRequest]: () => true,
     [editTodoSuccess]: () => false,
-    [editTodoError]: () => false
+    [editTodoError]: () => false,
+    [completeTodoRequest]: () => true,
+    [completeTodoSuccess]: () => false,
+    [completeTodoError]: () => false
 })
 
 // const todosReducer = (state = [], { type, payload }) => {
