@@ -3,6 +3,7 @@ import style from '../Form/Form.module.scss'
 import { addTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
 import Button from "react-bootstrap/Button";
+import { useRef } from 'react';
 
 
 
@@ -12,6 +13,7 @@ export default function Form({ toggleChange }) {
   const onSubmitTodo = (todo) => dispatch(addTodo(todo))
   
   const [name, setName] = useState('')
+  const input = useRef(null)
   
   const handleChange = (e) => setName(e.currentTarget.value)
 
@@ -26,7 +28,11 @@ export default function Form({ toggleChange }) {
   }
 
   useEffect(() => {
-    return setName('')
+    if (input.current) {
+      input.current.focus();
+    }
+    setName('')
+    
   }, [toggleChange])
 
   return (
@@ -41,8 +47,8 @@ export default function Form({ toggleChange }) {
             type="text"
             onChange={handleChange}
             value={name}
-          placeholder="Task name"
-          autoFocus
+            placeholder="Task name"
+            ref={input}
           ></textarea>
         </label>
         <div className={style.button__container}>

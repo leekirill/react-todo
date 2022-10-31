@@ -3,6 +3,7 @@ import style from '../Form/Form.module.scss'
 import { editTodo } from "../../redux/todos/todos-operation";
 import { useDispatch } from 'react-redux';
 import Button from "react-bootstrap/Button";
+import { useRef } from 'react';
 
 
 export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex }) {
@@ -11,9 +12,13 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
   const onSubmitEditTodo = (id, todo) => dispatch(editTodo(id, todo))
   
   const [value, setValue] = useState('') 
+  const input = useRef(null);
 
   useEffect(() => {
     setValue(taskName)
+    if (input.current) {
+      input.current.focus();
+    }
   }, [taskName])
 
   
@@ -35,7 +40,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
             type="text"
             onChange={handleChange}
             value={value}
-            autoFocus
+            ref={input}
           ></textarea>
         </label>
         <div className={style.button__container}>

@@ -54,12 +54,42 @@ input[type="checkbox"] {
   margin-bottom: 10px;
   border-radius: 0.375rem;
   list-style: none;
+  .checkbox {
+    opacity: 1;
+    &:before {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #367AF6;
+      position: relative;
+      top: -1px;
+      pointer-events: none;
+      transition: 250ms
+    }
+  }
     &-completed {
         @extend .item;
         color: #bebebe;
     
         .label {
           text-decoration: line-through;
+            .checkbox {
+                opacity: 1;
+            
+                &:before {
+                  content: "";
+                  display: block;
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 4px;
+                  background-color: #367AF6;
+                  position: relative;
+                  top: -1px;
+                }
+              }
         }
       }
     &:hover {
