@@ -1,81 +1,76 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import * as action from './todos-actions'
 
 axios.defaults.baseURL = 'https://63072734c0d0f2b80127fc98.mockapi.io/'
 
-const fetchTodo = () => async dispatch => {
+const fetchTodo = createAsyncThunk(
+    'todos/fetchTodo',
+    async () => {
+        const { data } = await axios.get('/todos')
+        return data
+  }
+)
 
-    dispatch(action.fetchTodoRequest())
-    
-    try {
-        const todos = await axios.get('/todos')
-        dispatch(action.fetchTodoSuccess(todos.data))
-    } catch (error) {
-        dispatch(action.fetchTodoError(error))
-    }
-}
+const addTodo = createAsyncThunk('todos/addTodo',
+    async (todo) => {
+        const { data } = await axios.post('/todos', todo)
+        return data
+  }
+)
 
-const addTodo = (todo) => async dispatch => {
+const deleteTodo = createAsyncThunk('todos/daleteTodo',
+    async (id) => {
+        const { data } = await axios.delete(`/todos/${id}`)
+        return data.id
+  }
+)
 
-    dispatch(action.addTodoRequest())
 
-    try {
-        const todos = await axios.post('/todos', todo)
-        dispatch(action.addTodoSuccess(todos.data))
-    } catch (error) {
-        dispatch(action.addTodoError(error))
-    }
-}
+const editTodo = createAsyncThunk('todos/editTodo',
+    async (id, taskName) => {
+        const { data } = await axios.put(`/todos/${id}`, { taskName })
+        return data
+  }
+)
 
-const deleteTodo = (id) => async dispatch => {
-
-    dispatch(action.deleteTodoRequest())
-
-    try {
-        const todos = await axios.delete(`/todos/${id}`)
-        dispatch(action.deleteTodoSuccess(todos.data.id))
-    } catch (error) {
-        dispatch(action.deleteTodoError(error.message))
-    }
-}
-
-const editTodo = (id, taskName) => async dispatch => {
-
-    dispatch(action.editTodoRequest())
-
-    try {
-        const todos = await axios.put(`/todos/${id}`, {
-            taskName
-        })
-        dispatch(action.editTodoSuccess(todos.data))
-    } catch (error) {
-        dispatch(action.editTodoError(error.message))
-    }
-}
-
-const completeTodo = (id, completeState) => async dispatch => {
-
-    dispatch(action.completeTodoRequest())
-
-    try {
-        const todos = await axios.put(`/todos/${id}`, {
+const completeTodo = createAsyncThunk('todos/completeTodo',
+    async (id, completeState) => {
+        const { data } = await axios.put(`/todos/${id}`, {
             completed: completeState
         })
-        dispatch(action.completeTodoSuccess(todos.data))
-    } catch (error) {
-        dispatch(action.completeTodoError(error.message))
-    }
-}
+        return data
+
+  }
+)
 
 const deleteAllTodo = () => async dispatch => {
-    dispatch(action.deleteAllTodoSuccess())
-
-    try {
-        const todo = await axios.get('/todos')
-        dispatch(action.deleteAllTodoSuccess(todo.data))
-    } catch (error) {
-        dispatch(action.deleteAllTodoError(error.message))
-    }
+    return
 }
+
+
+// const completeTodo = (id, completeState) => async dispatch => {
+
+//     dispatch(action.completeTodoRequest())
+
+//     try {
+//         const todos = await axios.put(`/todos/${id}`, {
+//             completed: completeState
+//         })
+//         dispatch(action.completeTodoSuccess(todos.data))
+//     } catch (error) {
+//         dispatch(action.completeTodoError(error.message))
+//     }
+// }
+
+// const deleteAllTodo = () => async dispatch => {
+//     dispatch(action.deleteAllTodoSuccess())
+
+//     try {
+//         const todo = await axios.get('/todos')
+//         dispatch(action.deleteAllTodoSuccess(todo.data))
+//     } catch (error) {
+//         dispatch(action.deleteAllTodoError(error.message))
+//     }
+// }
 
 export { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo, completeTodo }

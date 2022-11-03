@@ -1,17 +1,18 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import { fetchTodoRequest, fetchTodoSuccess, fetchTodoError, addTodoRequest, addTodoSuccess, addTodoError, deleteTodoRequest, deleteTodoSuccess, deleteTodoError, editTodoRequest, editTodoSuccess, editTodoError, deleteAllTodoRequest, deleteAllTodoSuccess, deleteAllTodoError, completeTodoRequest, completeTodoSuccess, completeTodoError, filterChange } from './todos-actions'
+import { filterChange } from './todos-actions'
+import { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo, completeTodo } from './todos-operation'
 
 const todosReducer = createReducer([], {
-    [fetchTodoSuccess]: (_, { payload }) => payload.reverse(),
-    [addTodoSuccess]: (state, { payload }) => [payload, ...state],
-    [deleteTodoSuccess]: (state, { payload }) => state.filter((todo) => todo.id !== payload),
-    [editTodoSuccess]: (state, { payload }) => state.map(todo => {
+    [fetchTodo.fulfilled]: (_, { payload }) => payload.reverse(),
+    [addTodo.fulfilled]: (state, { payload }) => [payload, ...state],
+    [deleteTodo.fulfilled]: (state, { payload }) => state.filter((todo) => todo.id !== payload),
+    [editTodo.fulfilled]: (state, { payload }) => state.map(todo => {
         if (todo.id === payload.id) return payload
         return todo
     }),
-    [deleteAllTodoSuccess]: (_, { payload }) => [],
-    [completeTodoSuccess]: (state, { payload }) => state.map(todo => {
+    [deleteAllTodo.fulfilled]: (_, { payload }) => [],
+    [completeTodo.fulfilled]: (state, { payload }) => state.map(todo => {
         if (todo.id === payload.id) {
             return {
                 ...todo,
@@ -28,21 +29,21 @@ const filterReducer = createReducer('', {
 })
 
 const loading = createReducer(false, {
-    [fetchTodoRequest]: () => true,
-    [fetchTodoSuccess]: () => false,
-    [fetchTodoError]: () => false,
-    [addTodoRequest]: () => true,
-    [addTodoSuccess]: () => false,
-    [addTodoError]: () => false,
-    [deleteTodoRequest]: () => true,
-    [deleteTodoSuccess]: () => false,
-    [deleteTodoError]: () => false,
-    [editTodoRequest]: () => true,
-    [editTodoSuccess]: () => false,
-    [editTodoError]: () => false,
-    [completeTodoRequest]: () => true,
-    [completeTodoSuccess]: () => false,
-    [completeTodoError]: () => false
+    [fetchTodo.pending]: () => true,
+    [fetchTodo.fulfilled]: () => false,
+    [fetchTodo.rejected]: () => false,
+    [addTodo.pending]: () => true,
+    [addTodo.fulfilled]: () => false,
+    [addTodo.rejected]: () => false,
+    [deleteTodo.pending]: () => true,
+    [deleteTodo.fulfilled]: () => false,
+    [deleteTodo.rejected]: () => false,
+    [editTodo.pending]: () => true,
+    [editTodo.fulfilled]: () => false,
+    [editTodo.rejected]: () => false,
+    [completeTodo.pending]: () => true,
+    [completeTodo.fulfilled]: () => false,
+    [completeTodo.rejected]: () => false,
 })
 
 // const todosReducer = (state = [], { type, payload }) => {
