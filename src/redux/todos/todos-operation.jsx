@@ -27,17 +27,28 @@ const deleteTodo = createAsyncThunk('todos/daleteTodo',
 
 
 const editTodo = createAsyncThunk('todos/editTodo',
-    async (id, taskName) => {
+    async (todo) => {
+
+        const { id, taskName } = todo
+
         const { data } = await axios.put(`/todos/${id}`, { taskName })
+
+        
         return data
   }
 )
 
 const completeTodo = createAsyncThunk('todos/completeTodo',
-    async (id, completeState) => {
+    async (todo) => {
+
+        const { id, completeState } = todo
+
         const { data } = await axios.put(`/todos/${id}`, {
-            completed: completeState
+            completed: !completeState
         })
+
+        console.log(data)
+
         return data
 
   }

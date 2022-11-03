@@ -9,7 +9,7 @@ import { useRef } from 'react';
 export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex }) {
   
   const dispatch = useDispatch()
-  const onSubmitEditTodo = (id, todo) => dispatch(editTodo(id, todo))
+  const onSubmitEditTodo = ({id, taskName}) => dispatch(editTodo({id, taskName}))
   
   const [value, setValue] = useState('') 
   const input = useRef(null);
@@ -26,7 +26,7 @@ export default function EditForm({ onClickEdit, taskName, isEdit, editNameIndex 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmitEditTodo(editNameIndex, value)
+    onSubmitEditTodo({ id: editNameIndex, taskName: value })
   }
 
   return (
