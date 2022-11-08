@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import rootCombiner from './todos/todos-reducer'
+import todoSlice from './todos/todos-reducer'
 
 const store = configureStore({
-    reducer: rootCombiner
+    reducer: todoSlice,
 })
 export default store

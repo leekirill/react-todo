@@ -33,7 +33,6 @@ const editTodo = createAsyncThunk('todos/editTodo',
 
         const { data } = await axios.put(`/todos/${id}`, { taskName })
 
-        
         return data
   }
 )
@@ -47,10 +46,7 @@ const completeTodo = createAsyncThunk('todos/completeTodo',
             completed: !completeState
         })
 
-        console.log(data)
-
         return data
-
   }
 )
 

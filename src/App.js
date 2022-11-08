@@ -45,7 +45,7 @@ export default function App() {
     <>
       <Header onClick={toggleState} total={todos && todos.length} />
       {loading ? <Loading /> : ""}
-      {todos.length === 0 ? (
+      {todos && todos.length === 0 ? (
         <Welcome onClick={toggleState} />
       ) : (
         <div className="container">
