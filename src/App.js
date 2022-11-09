@@ -4,6 +4,7 @@ import "./App.css";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Reorder } from "framer-motion";
 
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
@@ -24,6 +25,11 @@ export default function App() {
 
   const todos = useSelector((state) => state.todos);
   const loading = useSelector((state) => state.loading);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(todos);
+  }, [todos]);
 
   const dispatch = useDispatch();
   const onClickDeleteAllTodo = () => dispatch(deleteAllTodo());
@@ -50,16 +56,16 @@ export default function App() {
       ) : (
         <div className="container">
           <div className="content">
-            <ul>
+            <Reorder.Group axis="y" values={items} onReorder={setItems}>
               <button onClick={toggleState} className="item__add">
                 Add task
               </button>
               <TodoList
-                toggleState={toggleState}
                 onClickEdit={onClickEdit}
                 setEditNameIndex={setEditNameIndex}
+                items={items}
               />
-            </ul>
+            </Reorder.Group>
             <Button
               onClick={() => onClickDeleteAllTodo()}
               variant="outline-danger"
