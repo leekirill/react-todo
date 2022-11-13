@@ -1,5 +1,5 @@
 import style from '../Welcome/Welcome.module.scss'
-import pic from '../../img/pic.jpg'
+import pic from '../../assets/pic.jpg'
 import Button from "react-bootstrap/Button";
 import { AiOutlinePlus } from "react-icons/ai";
 

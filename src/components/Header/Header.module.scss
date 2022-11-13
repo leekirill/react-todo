@@ -38,3 +38,16 @@
         outline: none;
     }
 }
+
+.auth {
+    display: flex;
+    gap: 20px;
+
+    .link {
+        text-decoration: none;
+        color: #000;
+        &Active {
+            color:rgb(70, 104, 255);
+        }
+    }
+}

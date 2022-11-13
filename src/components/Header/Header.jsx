@@ -15,6 +15,10 @@ export default function Header({ onClick, total }) {
             <button className={style.btn} onClick={onClick}>+</button>
             <input type="text" value={value} onChange={(e) => handleChange(e.target.value)} placeholder='search' className={style.input}></input>
             <span>Total: {total}</span>
+            <div className={style.auth}>
+                <a href='/' className={style.link}>Sign up</a>
+                <a href='/' className={style.link}>Log in</a>
+            </div>
         </header>
     )
 }
