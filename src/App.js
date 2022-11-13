@@ -1,21 +1,21 @@
+import "./App.scss";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
-import React from "react";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Reorder } from "framer-motion";
+import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import EditForm from "./components/Form/EditForm";
 import Modal from "./components/Modal/Modal";
-import Welcome from "./components/Welcome/Welcome";
-import TodoList from "./components/TodoList/TodoList";
-import { fetchTodo, deleteAllTodo } from "./redux/todos/todos-operation";
-import Loading from "./components/Loading/Loading";
 
-import Button from "react-bootstrap/Button";
+import Homepage from "./views/Homepage/Homepage";
+import Login from "./views/Login/Login";
+import Register from "./views/Register/Register";
+
+import { fetchTodo } from "./redux/todos/todos-operation";
 
 export default function App() {
   const [isActive, setIsActive] = useState(false);
@@ -24,15 +24,8 @@ export default function App() {
   const [editNameIndex, setEditNameIndex] = useState(null);
 
   const todos = useSelector((state) => state.todos);
-  const loading = useSelector((state) => state.loading);
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    setItems(todos);
-  }, [todos]);
 
   const dispatch = useDispatch();
-  const onClickDeleteAllTodo = () => dispatch(deleteAllTodo());
 
   const toggleState = (e) => {
     if (e.currentTarget === e.target) setIsActive(!isActive);
@@ -49,32 +42,25 @@ export default function App() {
 
   return (
     <>
-      <Header onClick={toggleState} total={todos && todos.length} />
-      {loading ? <Loading /> : ""}
-      {todos && todos.length === 0 ? (
-        <Welcome onClick={toggleState} />
-      ) : (
-        <div className="container">
-          <div className="content">
-            <Reorder.Group axis="y" values={items} onReorder={setItems}>
-              <button onClick={toggleState} className="item__add">
-                Add task
-              </button>
-              <TodoList
-                onClickEdit={onClickEdit}
+      <Header onClick={toggleState} />
+      <div className="container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Homepage
+                setIsEditName={setIsEditName}
                 setEditNameIndex={setEditNameIndex}
-                items={items}
+                toggleState={toggleState}
+                onClickEdit={onClickEdit}
+                total={todos && todos.length}
               />
-            </Reorder.Group>
-            <Button
-              onClick={() => onClickDeleteAllTodo()}
-              variant="outline-danger"
-            >
-              Delete all
-            </Button>
-          </div>
-        </div>
-      )}
+            }
+          ></Route>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Register />} />
+        </Routes>
+      </div>
       <Modal isActive={isActive} toggleChange={toggleState}>
         <Form toggleChange={toggleState} isEdit={isEdit} />
       </Modal>

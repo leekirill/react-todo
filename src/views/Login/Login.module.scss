@@ -1,0 +1,21 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: calc(100% / 8) 0;
+
+    &Left {
+        width: 100%;
+    }
+}
+
+.h2 {
+    margin-bottom: 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+}

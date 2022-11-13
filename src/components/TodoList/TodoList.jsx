@@ -15,6 +15,7 @@ export default function TodoList({ onClickEdit, setEditNameIndex, items }) {
     const filter = useSelector(state => state.filter)
 
     const dispatch = useDispatch()
+    
     const onClickDeleteTodo = (id) => {
         if (window.confirm('Are you sure?') === true) {
             dispatch(deleteTodo(id))
