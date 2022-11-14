@@ -1,9 +1,8 @@
-.container {
+.content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    background: #f7f7f7;
+    padding: 15px 0px;
 }
 
 .control {
@@ -11,9 +10,10 @@
     gap: 20px;
     .menu {
         display: inherit;
+        align-items: center;
+        gap: 14px;
     &Item {
         display: flex;
-        padding: 0 16px;
         justify-content: center;
         align-items: center;
         border: none;
@@ -46,14 +46,15 @@
 
 .auth {
     display: flex;
-    gap: 20px;
-
     .link {
+        padding: 4px 10px;
+        border-radius: 4px;
         text-decoration: none;
         color: #000;
         &Active {
             @extend .link;
             color:rgb(70, 104, 255);
-        }
+            background: rgba(232, 232, 232, 0.8666666667);
+    }
     }
 }

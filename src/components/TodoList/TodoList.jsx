@@ -2,12 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteTodo, completeTodo } from "../../redux/todos/todos-operation";
 import { Reorder } from "framer-motion"
-import { nanoid } from 'nanoid'
 import { BsFillTrashFill } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
-import { useState } from "react";
-import EditForm from "../Form/EditForm";
-import Modal from "../Modal/Modal";
 
 
 export default function TodoList({ onClickEdit, setEditNameIndex, items }) {

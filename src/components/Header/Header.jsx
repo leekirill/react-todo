@@ -19,7 +19,8 @@ export default function Header({ onClick }) {
 
     return (
         <header>
-            <div className={style.container}>
+            <div className='container'>
+            <div className={style.content}>
                 <div className={style.control}>
                     <div className={style.menu}>  
                         <NavLink to='/'><div className={style.menuItem}><HiHome /></div></NavLink>
@@ -31,7 +32,8 @@ export default function Header({ onClick }) {
                     <NavLink to='/signup' className={({isActive}) => isActive ? style.linkActive : style.link}>Sign up</NavLink>
                     <NavLink to='/login' className={({isActive}) => isActive ? style.linkActive : style.link}>Log in</NavLink>
                 </div>
-            </div>
+                </div>
+                </div>
         </header>
     )
 }

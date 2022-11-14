@@ -1,7 +1,5 @@
-import { combineReducers } from "redux";
-import { createSlice, createReducer } from "@reduxjs/toolkit";
-// import { filterChange } from './todos-actions'
-import { fetchTodo, addTodo, deleteTodo, deleteAllTodo, editTodo, completeTodo } from './todos-operation'
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchTodo, addTodo, deleteTodo, editTodo, completeTodo } from './todos-operation'
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -77,6 +75,7 @@ const todoSlice = createSlice({
         }
     }
 })
+
 
 export const { filterChange } = todoSlice.actions
 export default todoSlice.reducer
